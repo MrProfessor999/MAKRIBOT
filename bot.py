@@ -9,7 +9,6 @@ from random import choice
 from pyrogram import Client, filters
 from youtube_search import YoutubeSearch
 from youtubesearchpython import VideosSearch
-from database import Database
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, Message, InlineQuery, InlineQueryResultArticle, InputTextMessageContent
 from pyrogram.errors import FloodWait, InputUserDeactivated, UserIsBlocked, PeerIdInvalid
 from pyrogram.errors.exceptions.bad_request_400 import PeerIdInvalid
@@ -22,7 +21,6 @@ Bot = Client(
     api_hash = os.environ["API_HASH"]
 )
 
-db = Database()
 
 START_TEXT = """ `Hai {}, 
 Am a song download Bot I Can Download Songs,Videos and Lyrics From YouTube and lyrics and  Would upload into Telegram. 
@@ -50,7 +48,7 @@ CMDS_TEXT = """
 
 ABOUT_TEXT = """
 - **Bot :** `Song Downloader`
-- **Creator :** [MR-JINN-OF-TG](https://Github.com/MR-JINN-OF-TG)
+- **Creator :** [MR-JINN-OF-TG](https://Github.com)
 - **Support :** [CLICK HERE](https://telegram.me/{Config.SUPPORT}")
 - **Source :** [CLICK HERE](https://t.me/IPPO_KITTUM)
 - **Language :** [Python3](https://python.org)
@@ -125,7 +123,7 @@ async def about(bot, update):
         reply_markup=ABOUT_BUTTONS
     )
 
-broadcast_ids = {}
+
 
 async def send_msg(user_id, message):
     try:
