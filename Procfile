@@ -1,1 +1,1 @@
-worker: python3 makribot.py
+worker: python3 Makribot.py
