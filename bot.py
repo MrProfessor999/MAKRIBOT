@@ -23,7 +23,7 @@ Bot = Client(
 
 
 
-Image = "
+Image = "https://telegra.ph/file/48c822bc450f1bf99d876.jpg"
 START_TEXT = """ `Hai {}, 
 Am a song download Bot I Can Download Songs,Videos and Lyrics From YouTube and lyrics and  Would upload into Telegram. 
 Use /help Commands For More.`
