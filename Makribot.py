@@ -109,10 +109,9 @@ async def cb_handler(bot, update):
 @Bot.on_message(filters.private & filters.command(["start"]))
 async def start(bot, update):    
     await update.reply_text(
-        text=START_TEXT.format(update.from_user.mention),
-        image="https://telegra.ph/file/48c822bc450f1bf99d876.jpg"),
+        text=START_TEXT.format(update.from_user.mention),        
         reply_markup=START_BUTTONS,
-        disable_web_page_preview=True,	
+        disable_web_page_preview=True	
     )
 
 @Bot.on_message(filters.private & filters.command(["about"]))
