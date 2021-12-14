@@ -22,6 +22,8 @@ Bot = Client(
 )
 
 
+
+Image = "
 START_TEXT = """ `Hai {}, 
 Am a song download Bot I Can Download Songs,Videos and Lyrics From YouTube and lyrics and  Would upload into Telegram. 
 Use /help Commands For More.`
@@ -105,12 +107,10 @@ async def cb_handler(bot, update):
 
         
 @Bot.on_message(filters.private & filters.command(["start"]))
-async def start(bot, update):
-    if not await db.is_user_exist(update.from_user.id):
-        await db.add_user(update.from_user.id)  
-
+async def start(bot, update):    
     await update.reply_text(
         text=START_TEXT.format(update.from_user.mention),
+        image=Image
         disable_web_page_preview=True,
 	reply_markup=START_BUTTONS
     )
