@@ -47,8 +47,8 @@ CMDS_TEXT = """
 """
 
 ABOUT_TEXT = """
-- **Bot :** `Song Downloader`
-- **Creator :** [MAKRI](https://Github.com)
+- **Bot :** `Song `
+- **Creator :** [MAKRI](https://t.me/blesson_3)
 - **Support :** [CLICK HERE](https://telegram.me/{Config.SUPPORT}")
 - **Source :** [CLICK HERE](https://t.me/IPPO_KITTUM)
 - **Language :** [Python3](https://python.org)
