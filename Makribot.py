@@ -6,7 +6,9 @@ logger = logging.getLogger(__name__)
 import os, re, time, math, json, string, random, traceback, wget, asyncio, datetime, aiofiles, aiofiles.os, requests, youtube_dl, lyricsgenius
 from config import Config
 from random import choice 
-import y_dl
+import yt_dlp
+from yt_dlp import YoutubeDL
+from youtube_search import YoutubeSearch
 from pyrogram import Client, filters
 from youtube_search import YoutubeSearch
 from youtubesearchpython import VideosSearch
@@ -286,7 +288,7 @@ def download_youtube_audio(url: str):
     return [title, performer, duration, audio_file, thumbnail_file]
 
 
-@pbot.on_message(filters.command(["vsong", "video"]))
+@Bot.on_message(filters.command(["vsong", "video"]))
 async def ytmusic(client, message: Message):
     urlissed = get_text(message)
 
@@ -362,7 +364,7 @@ async def ytmusic(client, message: Message):
             os.remove(files)
 
 
-@pbot.on_message(filters.command(["music", "song"]))
+@Bot.on_message(filters.command(["music", "song"]))
 async def ytmusic(client, message: Message):
     urlissed = get_text(message)
     if not urlissed:
