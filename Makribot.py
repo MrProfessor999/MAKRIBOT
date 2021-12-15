@@ -108,7 +108,7 @@ async def cb_handler(bot, update):
             reply_markup=ABOUT_BUTTONS,
             disable_web_page_preview=True
         )
-     elif update.data == "song":
+    elif update.data == "song":
         await update.message.edit_text(
             text=MUSIC,
             reply_markup=MUSIC_BUTTON,
