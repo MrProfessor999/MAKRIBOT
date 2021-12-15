@@ -3,6 +3,7 @@
 
 import logging
 logger = logging.getLogger(__name__)
+LOGGER = logging.getLogger(__name__)
 import os, re, time, math, json, string, random, traceback, wget, asyncio, datetime, aiofiles, aiofiles.os, requests, youtube_dl, lyricsgenius
 from config import Config
 from random import choice 
@@ -428,10 +429,7 @@ def yt_search(song):
 
 
 @Bot.on_message(filters.command("song","music","m","s"))
-async def song(client, message):
-    chat_id = message.chat.id
-    user_id = message.from_user["id"]
-    add_chat_to_db(str(chat_id))
+async def song(client, message):        
     args = get_arg(message) + " " + "song"
     if args.startswith(" "):
         await message.reply("Enter a song name. Check /help")
