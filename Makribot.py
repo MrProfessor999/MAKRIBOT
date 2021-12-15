@@ -50,7 +50,10 @@ ABOUT_TEXT = """
 MUSIC = """ **🎧MUSIC**
 You can also use this feature in group too
 ➩ /music <songname artist(optional)>: uploads the song in it's best quality available
-You can also use these commands /song,/m,/s
+You can also use these commands
+➩/song
+➩/s
+➩/m
 """
  
 VSONG = """ **📀VSONG📀**
