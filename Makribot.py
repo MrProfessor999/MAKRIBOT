@@ -6,6 +6,7 @@ logger = logging.getLogger(__name__)
 import os, re, time, math, json, string, random, traceback, wget, asyncio, datetime, aiofiles, aiofiles.os, requests, youtube_dl, lyricsgenius
 from config import Config
 from random import choice 
+import y_dl
 from pyrogram import Client, filters
 from youtube_search import YoutubeSearch
 from youtubesearchpython import VideosSearch
@@ -177,74 +178,8 @@ def time_to_seconds(time):
 
 
 
-@Bot.on_message(filters.command(["song","music","m","s","ytaudio"]))
-def a(client, message):
-    query = ''
-    for i in message.command[1:]:
-        query += ' ' + str(i)
-    print(query)
-    m = message.reply('`Searching... Please Wait...`')
-    ydl_opts = {"format": "bestaudio[ext=m4a]"}
-    try:
-        results = []
-        count = 0
-        while len(results) == 0 and count < 6:
-            if count>0:
-                time.sleep(1)
-            results = YoutubeSearch(query, max_results=1).to_dict()
-            count += 1
-        # results = YoutubeSearch(query, max_results=1).to_dict()
-        try:
-            link = f"https://youtube.com{results[0]['url_suffix']}"
-            # print(results)
-            title = results[0]["title"]
-            thumbnail = results[0]["thumbnails"][0]
-            duration = results[0]["duration"]
-            views = results[0]["views"]
 
-            ## UNCOMMENT THIS IF YOU WANT A LIMIT ON DURATION. CHANGE 1800 TO YOUR OWN PREFFERED DURATION AND EDIT THE MESSAGE (30 minutes cap) LIMIT IN SECONDS
-            # if time_to_seconds(duration) >= 7000:  # duration limit
-            #     m.edit("Exceeded 30mins cap")
-            #     return
-
-            performer = f"[MAKRI]" 
-            thumb_name = f'thumb{message.message_id}.jpg'
-            thumb = requests.get(thumbnail, allow_redirects=True)
-            open(thumb_name, 'wb').write(thumb.content)
-
-        except Exception as e:
-            print(e)
-            m.edit('**No Results Found With This Data!**')
-            return
-    except Exception as e:
-        m.edit(
-            "**Enter The Song Name with /song /music /m /s command.!**"
-        )
-        print(str(e))
-        return
-    m.edit("Please Wait...🙂")
-    try:
-        with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-            info_dict = ydl.extract_info(link, download=False)
-            audio_file = ydl.prepare_filename(info_dict)
-            ydl.process_info(info_dict)
-        rep = f'❍📖 <b>Title:</b> <a href="{link}">{title}</a>\n❍⌚ <b>Duration:</b> <code>{duration}</code>\n❍📤 <b>Uploaded By:</b> <a href="https://t.me/Makri_songbot">MAKRI_SONGBOT</a>'
-        secmul, dur, dur_arr = 1, 0, duration.split(':')
-        for i in range(len(dur_arr)-1, -1, -1):
-            dur += (int(dur_arr[i]) * secmul)
-            secmul *= 60
-        message.reply_audio(audio_file, caption=rep, parse_mode='HTML',quote=False, title=title, duration=dur, performer=performer, thumb=thumb_name)
-        m.delete()
-    except Exception as e:
-        m.edit('**Something Went Wrong Report This at @EDIT_REPO!!**')
-        print(e)
-    try:
-        os.remove(audio_file)
-        os.remove(thumb_name)
-    except Exception as e:
-        print(e)
 	
-
 @Bot.on_inline_query()
 async def inline(client: Client, query: InlineQuery):
     answers = []
@@ -311,19 +246,52 @@ async def lrsearch(_, message: Message):
 {S.lyrics}"""
     await m.edit(xxx)
 
-@Bot.on_message(filters.command(["vsong", "video","ytvideo"]))
-async def ytmusic(client, message: Message):
-    global is_downloading
-    if is_downloading:
-        await message.reply_text(
-            "Another download is in progress, try again after sometime."
-        )
-        return
 
+def get_file_extension_from_url(url):
+    url_path = urlparse(url).path
+    basename = os.path.basename(url_path)
+    return basename.split(".")[-1]
+
+
+def download_youtube_audio(url: str):
+    global is_downloading
+    with yt_dlp.YoutubeDL(
+        {
+            "format": "bestaudio",
+            "writethumbnail": True,
+            "quiet": True,
+        }
+    ) as ydl:
+        info_dict = ydl.extract_info(url, download=False)
+        if int(float(info_dict["duration"])) > 180:
+            is_downloading = False
+            return []
+        ydl.process_info(info_dict)
+        audio_file = ydl.prepare_filename(info_dict)
+        basename = audio_file.rsplit(".", 1)[-2]
+        if info_dict["ext"] == "webm":
+            audio_file_opus = basename + ".opus"
+            ffmpeg.input(audio_file).output(
+                audio_file_opus, codec="copy", loglevel="error"
+            ).overwrite_output().run()
+            os.remove(audio_file)
+            audio_file = audio_file_opus
+        thumbnail_url = info_dict["thumbnail"]
+        thumbnail_file = (
+            basename + "." + get_file_extension_from_url(thumbnail_url)
+        )
+        title = info_dict["title"]
+        performer = info_dict["uploader"]
+        duration = int(float(info_dict["duration"]))
+    return [title, performer, duration, audio_file, thumbnail_file]
+
+
+@pbot.on_message(filters.command(["vsong", "video"]))
+async def ytmusic(client, message: Message):
     urlissed = get_text(message)
 
     pablo = await client.send_message(
-        message.chat.id, f"`Finding {urlissed} From Youtube Servers. Please Wait.\n\n Uploading Slowed down Due to Heavy Traffic.!`"
+        message.chat.id, f"`Getting {urlissed} From Youtube Servers. Please Wait.`"
     )
     if not urlissed:
         await pablo.edit("Invalid Command Syntax, Please Check Help Menu To Know More!")
@@ -353,27 +321,25 @@ async def ytmusic(client, message: Message):
         "quiet": True,
     }
     try:
-        is_downloading = True
-        with youtube_dl.YoutubeDL(opts) as ytdl:
+        with YoutubeDL(opts) as ytdl:
             infoo = ytdl.extract_info(url, False)
             duration = round(infoo["duration"] / 60)
-
-            if duration > DURATION_LIMIT:
+            LIMIT = "180"          
+ 
+            if duration > LIMIT:
                 await pablo.edit(
-                    f"❌ Videos longer than {DURATION_LIMIT} minute(s) aren't allowed, the provided video is {duration} minute(s)"
+                    f"❌ **durasinya kelamaan gabisa tot:v**"
                 )
                 is_downloading = False
                 return
             ytdl_data = ytdl.extract_info(url, download=True)
 
-    except Exception:
-        # await pablo.edit(event, f"**Failed To Download** \n**Error :** `{str(e)}`")
-        is_downloading = False
+    except Exception as e:
+        await pablo.edit(f"**Failed To Download** \n**Error :** `{str(e)}`")
         return
-
     c_time = time.time()
     file_stark = f"{ytdl_data['id']}.mp4"
-    capy = f"**Video Title ➠** `{thum}` \n**Requested Song :** `{urlissed}` \n**Source :** `{thums}` \n**Link :** `{mo}`"
+    capy = f"**Video Name ➠** [{thum}]({mo}) \n**Requested For :** `{urlissed}` \n**Channel :** `{thums}` "
     await client.send_video(
         message.chat.id,
         video=open(file_stark, "rb"),
@@ -391,9 +357,84 @@ async def ytmusic(client, message: Message):
         ),
     )
     await pablo.delete()
-    is_downloading = False
     for files in (sedlyf, file_stark):
         if files and os.path.exists(files):
             os.remove(files)
+
+
+@pbot.on_message(filters.command(["music", "song"]))
+async def ytmusic(client, message: Message):
+    urlissed = get_text(message)
+    if not urlissed:
+        await client.send_message(
+            message.chat.id,
+            "Invalid Command Syntax, Please Check Help Menu To Know More!",
+        )
+        return
+    pablo = await client.send_message(
+        message.chat.id, f"`Getting {urlissed} From Youtube Servers. Please Wait.`"
+    )
+    search = SearchVideos(f"{urlissed}", offset=1, mode="dict", max_results=1)
+    mi = search.result()
+    mio = mi["search_result"]
+    mo = mio[0]["link"]
+    mio[0]["duration"]
+    thum = mio[0]["title"]
+    fridayz = mio[0]["id"]
+    thums = mio[0]["channel"]
+    kekme = f"https://img.youtube.com/vi/{fridayz}/hqdefault.jpg"
+    await asyncio.sleep(0.6)
+    sedlyf = wget.download(kekme)
+    opts = {
+        "format": "bestaudio",
+        "addmetadata": True,
+        "key": "FFmpegMetadata",
+        "writethumbnail": True,
+        "prefer_ffmpeg": True,
+        "geo_bypass": True,
+        "nocheckcertificate": True,
+        "postprocessors": [
+            {
+                "key": "FFmpegExtractAudio",
+                "preferredcodec": "mp3",
+                "preferredquality": "720",
+            }
+        ],
+        "outtmpl": "%(id)s.mp3",
+        "quiet": True,
+        "logtostderr": False,
+    }
+    try:
+        with YoutubeDL(opts) as ytdl:
+            ytdl_data = ytdl.extract_info(mo, download=True)
+    except Exception as e:
+        await pablo.edit(f"**Failed To Download** \n**Error :** `{str(e)}`")
+        return
+    c_time = time.time()
+    capy = f"**Song Name :** [{thum}]({mo}) \n**Requested For :** `{urlissed}` \n**Channel :** `{thums}` "
+    file_stark = f"{ytdl_data['id']}.mp3"
+    await client.send_audio(
+        message.chat.id,
+        audio=open(file_stark, "rb"),
+        duration=int(ytdl_data["duration"]),
+        title=str(ytdl_data["title"]),
+        performer=str(ytdl_data["uploader"]),
+        thumb=sedlyf,
+        caption=capy,
+        progress=progress,
+        progress_args=(
+            pablo,
+            c_time,
+            f"`Uploading {urlissed} Song From YouTube Music!`",
+            file_stark,
+        ),
+    )
+    await pablo.delete()
+    for files in (sedlyf, file_stark):
+        if files and os.path.exists(files):
+            os.remove(files)
+
+
+
 
 Bot.run()
