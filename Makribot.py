@@ -12,6 +12,7 @@ from youtube_search import YoutubeSearch
 from pyrogram import Client, filters
 from youtube_search import YoutubeSearch
 from youtubesearchpython import VideosSearch
+from youtubesearchpython import SearchVideos
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, Message, InlineQuery, InlineQueryResultArticle, InputTextMessageContent
 from pyrogram.errors import FloodWait, InputUserDeactivated, UserIsBlocked, PeerIdInvalid
 from pyrogram.errors.exceptions.bad_request_400 import PeerIdInvalid
@@ -46,19 +47,19 @@ ABOUT_TEXT = """
 ║┣⪼ 𝓑𝓾𝓲𝓵𝓭 𝓢𝓽𝓪𝓽𝓾𝓼 - v1.0.1 [ 𝙱𝙴𝚃𝙰 ]
 ║╰━━━━━━━━━━━━━━━➣ ╚══════════════════❍⊱❁۪۪
 """
-MUSIC = """Help: <b>🎧MUSIC🎧</b>
+MUSIC = """ **🎧MUSIC**
 ➩ /music <songname artist(optional)>: uploads the song in it's best quality available
 """
  
-VSONG = """Help: <b>📀VSONG📀</b>
+VSONG = """ **📀VSONG📀**
 ➩ /vsong <songname artist(optional)>: uploads the video song in it's best quality available
 """
   
-LYRICS = """Help: <b>🎶LYRICS🎶</b>
+LYRICS = """ **🎶LYRICS🎶**
 ➩ /lyrics <songname>: uploads the lyrics of song
 """
 
-YOUTUBE = """Help: <b>📽️YOUTUBE📽️</b>
+YOUTUBE = """  **📽️YOUTUBE📽️**
 ➩ /ytaudio <youtubelink>: uploads the audio of song in it's best quality available
 ➩ /ytvideo <youtubelink>: uploads the video of song in it's best quality available
 """
