@@ -55,8 +55,13 @@ START_BUTTONS = InlineKeyboardMarkup(
     )
 CMDS_BUTTONS = InlineKeyboardMarkup(
         [[
-        InlineKeyboardButton('HOME🏡', callback_data='home'),
-        InlineKeyboardButton('CLOSE🔐', callback_data='close')
+        InlineKeyboardButton('🎧MUSIC🎧', callback_data='song'),
+        InlineKeyboardButton('📀VSONG📀', callback_data='video')
+        ],[
+        InlineKeyboardButton('🎶LYRICS🎶', callback_data='lyrics')
+        InlineKeyboardButton('📽️YOUTUBE📽️', callback_data='youtube')
+        ],[
+        InlineKeyboardButton('🏠 Home', callback_data='home'),            
         ]]
     )
 ABOUT_BUTTONS = InlineKeyboardMarkup(
@@ -98,7 +103,7 @@ async def cb_handler(bot, update):
             reply_markup=VSONG_BUTTON,
             disable_web_page_preview=True
         )
-    elif update.data == "lyric":
+    elif update.data == "lyrics":
         await update.message.edit_text(
             text=LYRICS,
             reply_markup=LYRICS_BUTTON,
