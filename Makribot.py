@@ -228,9 +228,9 @@ def get_text(message: Message) -> [None, str]:
 @Bot.on_message(filters.private & filters.command(["start"]))
 async def start(bot, update):    
     await m.reply_photo(
-        photo=STARTPIC,
-        caption=Tr.START_TEXT.format(m.from_user.mention),
-        reply_markup=START_BOTTONS,    
+        photo="https://telegra.ph/file/a9522ca5294a086a5dbe8.jpg",
+        caption=START_TEXT.format(m.from_user.mention),
+        reply_markup=START_BUTTONS,    
         disable_web_page_preview=True	
     )
 
