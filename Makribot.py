@@ -23,13 +23,12 @@ Bot = Client(
 
 
 
-START_TEXT = """ `Hai {}, 
-Am a song download Bot I Can Download Songs,Videos and Lyrics From YouTube and lyrics and  Would upload into Telegram. 
-Use /help Commands For More.`
+START_TEXT = """ Hai {}, 
+Iam a song download Bot 🙂
 """
 
 CMDS_TEXT = """
-Hey {} This are this bots fetures
+Hey {} This are this bots power🌠
 """
 
 ABOUT_TEXT = """
@@ -44,6 +43,24 @@ ABOUT_TEXT = """
 ║┣⪼ 𝓑𝓾𝓲𝓵𝓭 𝓢𝓽𝓪𝓽𝓾𝓼 - v1.0.1 [ 𝙱𝙴𝚃𝙰 ]
 ║╰━━━━━━━━━━━━━━━➣ ╚══════════════════❍⊱❁۪۪
 """
+MUSIC = """Help: <b>🎧MUSIC🎧</b>
+➩ /music <songname artist(optional)>: uploads the song in it's best quality available
+"""
+ 
+VSONG = """Help: <b>📀VSONG📀</b>
+➩ /vsong <songname artist(optional)>: uploads the video song in it's best quality available
+"""
+  
+LYRICS = """Help: <b>🎶LYRICS🎶</b>
+➩ /lyrics <songname>: uploads the lyrics of song
+"""
+
+YOUTUBE = """Help: <b>📽️YOUTUBE📽️</b>
+➩ /ytaudio <youtubelink>: uploads the audio of song in it's best quality available
+➩ /ytvideo <youtubelink>: uploads the video of song in it's best quality available
+"""
+
+
 START_BUTTONS = InlineKeyboardMarkup(
         [[
         InlineKeyboardButton('Support📕', url=f"https://telegram.me/{Config.SUPPORT}"), 
