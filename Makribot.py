@@ -227,9 +227,10 @@ def get_text(message: Message) -> [None, str]:
         
 @Bot.on_message(filters.private & filters.command(["start"]))
 async def start(bot, update):    
-    await update.reply_text(
-        text=START_TEXT.format(update.from_user.mention),        
-        reply_markup=START_BUTTONS,
+    await m.reply_photo(
+        photo=STARTPIC,
+        caption=Tr.START_TEXT.format(m.from_user.mention),
+        reply_markup=START_BOTTONS,    
         disable_web_page_preview=True	
     )
 
