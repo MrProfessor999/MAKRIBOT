@@ -229,8 +229,7 @@ def get_text(message: Message) -> [None, str]:
 async def start(bot, update):    
     await update.reply_photo(
         photo="https://telegra.ph/file/a9522ca5294a086a5dbe8.jpg",
-        caption=START_TEXT.format(update.from_user.mention),
-        reply_markup=START_BUTTONS,    
+        caption=START_TEXT.format(update.from_user.mention),            
         disable_web_page_preview=True	
     )
 
@@ -238,8 +237,7 @@ async def start(bot, update):
 async def about(bot, update):
     await update.reply_photo(
         photo="https://telegra.ph/file/a9522ca5294a086a5dbe8.jpg",
-        caption=ABOUT_TEXT,
-        disable_web_page_preview=True,
+        caption=ABOUT_TEXT,        
         reply_markup=ABOUT_BUTTONS
     )
 
