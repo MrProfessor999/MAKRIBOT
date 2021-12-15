@@ -23,7 +23,6 @@ Bot = Client(
 
 
 
-Image = "https://telegra.ph/file/48c822bc450f1bf99d876.jpg"
 START_TEXT = """ `Hai {}, 
 Am a song download Bot I Can Download Songs,Videos and Lyrics From YouTube and lyrics and  Would upload into Telegram. 
 Use /help Commands For More.`
@@ -52,7 +51,7 @@ ABOUT_TEXT = """
 - **Bot :** `Song `
 - **Creator :** [MAKRI](https://t.me/blesson_3)
 - **Support :** [CLICK HERE](https://telegram.me/{Config.SUPPORT}")
-- **Source :** [CLICK HERE](https://t.me/IPPO_KITTUM)
+- **Source :** [CLICK HERE](https://t.me/biriyani)
 - **Language :** [Python3](https://python.org)
 - **Library :** [Pyrogram](https://pyrogram.org)
 - **Server :** [Heroku](https://heroku.com)
@@ -147,7 +146,7 @@ def time_to_seconds(time):
 
 
 
-@Bot.on_message(filters.command(['song']))
+@Bot.on_message(filters.command(["song","music","m","s"]))
 def a(client, message):
     query = ''
     for i in message.command[1:]:
@@ -188,11 +187,11 @@ def a(client, message):
             return
     except Exception as e:
         m.edit(
-            "**Enter The Song Name with /song command.!**"
+            "**Enter The Song Name with /song /music /m /s command.!**"
         )
         print(str(e))
         return
-    m.edit("`AM...Uploading To TG now... Please Wait...`")
+    m.edit("Please Wait...🙂")
     try:
         with youtube_dl.YoutubeDL(ydl_opts) as ydl:
             info_dict = ydl.extract_info(link, download=False)
@@ -271,7 +270,7 @@ async def lrsearch(_, message: Message):
     y.verbose = False
     S = y.search_song(query, get_full_info=False)
     if S is None:
-        return await m.edit("Lyrics not found..🙃😔.")
+        return await m.edit("Lyrics not found..")
     xxx = f"""
 **Lyrics Search Powered By Music Bot**
 **Searched Song:-** __{query}__
