@@ -1,43 +1,46 @@
-# Song-Downloader-Bot
-
-A BOT TO DOWNLOAD SONGS FROM YOUTUBE. 
-
-# Mandatory variables 
-
-- API_ID - Get It From [my.telegram.org](https://my.telegram.org)
-- API_HASH - Get It From [my.telegram.org](https://my.telegram.org) 
-- BOT_TOKEN - Get It From [@Botfather](https://t.me/BOTFATHER)
-- DB_URI - Mongo Database URL from [https://cloud.mongodb.com/](https://cloud.mongodb.com/) 
-- OWNER_ID - Get This From [NAZRIYANAZEEMBOT](https://t.me/NAZRIYANAZEEMBOT) By using /id command on bot pm. 
 
 
-# Feautures 
+- [x] Audio of song 
+- [x] Video of song
+- [x] Lyrics
+- [X] Subtitles
 
-- Song Downloader. 
-- YouTube video Downloader. 
-- Lyrics scrapping. 
-- Inline YouTube serch. 
-- Broadcast Message To users. 
+## Variables
 
-# Credits 
-
-- [Oxidisedman](https://github.com/Oxidisedman). 
-- [Muhammed](https://github.com/PR0FESS0R-99). 
-- [Pyrogram](https://github.com/pyrogram/pyrogram) and For [Me](https://github.com/MR-JINN-OF-TG). 
+### Required Variables
+* `BOT_TOKEN`: Create a bot using [@BotFather](https://telegram.dog/BotFather), and get the Telegram API token.
+* `API_ID`: Get this value from [telegram.org](https://my.telegram.org/apps)
+* `API_HASH`: Get this value from [telegram.org](https://my.telegram.org/apps)
+* `PICS`: Telegraph links of images to show in start message.( Multiple images can be used seperated by space )
 
 
-# Deploy To Heroku
+
+## Deploy
+You can deploy this bot anywhere.
+
 
 <details><summary>Deploy To Heroku</summary>
 <p>
 <br>
-<a href="https://heroku.com/deploy?template=https://github.com/MR-JINN-OF-TG/Song-Downloader-Bot">
+<a href="https://heroku.com/deploy?template=https://github.com/NAVIPAVI6818/SONG_BOT/tree/master">
   <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy">
 </a>
 </p>
 </details>
 
 
-# support Group
 
-- [Click Here To Reach Our Support Group](https://t.me/NAZRIYASUPPORT) 
+## Commands
+```
+• /music - get music 
+• /vsong - video of song 
+• /lyrics - lyrics of song
+• /Subtitle - Subtitle of movie or series
+• 
+```
+
+## DEVOLOPER
+```
+ Every one in this journey I don't make this kanged from different bots 
+```
+
