@@ -33,24 +33,24 @@ Hey {} This are this bots fetures
 """
 
 ABOUT_TEXT = """
-- **Bot :** `Song `
-- **Creator :** [MAKRI](https://t.me/blesson_3)
-- **Support :** [CLICK HERE](https://telegram.me/{Config.SUPPORT}")
-- **Source :** [CLICK HERE](https://t.me/biriyani)
-- **Language :** [Python3](https://python.org)
-- **Library :** [Pyrogram](https://pyrogram.org)
-- **Server :** [Heroku](https://heroku.com)
-
+✵✵✵✵✵✵✵✵✵✵✵✵✵✵✵✵✵✵✵✵
+╔════❰ 𝐀𝐁𝐎𝐔𝐓 ❱═❍⊱❁۪۪
+║╭━━━━━━━━━━━━━━━➣ 
+║ 𝙈𝙔𝙉𝘼𝙈𝙀-𝐌𝐀𝐊𝐑𝐈_𝐒𝐎𝐍𝐆𝐁𝐎𝐓 
+║┣⪼𝓓𝓮𝓿𝓸𝓵𝓸𝓹𝓮𝓻 -[𝐌𝐀𝐊𝐑𝐈](https://t.me/blesson_3)
+║┣⪼ 𝓛𝓲𝓫𝓻𝓪𝓻𝓻𝔂 - [𝙿𝚈𝚁𝙾𝙶𝚁𝙰𝙼](https://pyrogram.org)
+║┣⪼ 𝓛𝓪𝓷𝓰𝓾𝓪𝓰𝓮 - [𝙿𝚈𝚃𝙷𝙾𝙽 𝟹](https://python.org)
+║┣⪼ 𝓑𝓸𝓽 𝓼𝓮𝓻𝓿𝓮𝓻 -  [𝙷𝙴𝚁𝙾𝙺𝚄](https://heroku.com)
+║┣⪼ 𝓑𝓾𝓲𝓵𝓭 𝓢𝓽𝓪𝓽𝓾𝓼 - v1.0.1 [ 𝙱𝙴𝚃𝙰 ]
+║╰━━━━━━━━━━━━━━━➣ ╚══════════════════❍⊱❁۪۪
 """
 START_BUTTONS = InlineKeyboardMarkup(
         [[
         InlineKeyboardButton('Support📕', url=f"https://telegram.me/{Config.SUPPORT}"), 
         InlineKeyboardButton(text="SEARCH🔎", switch_inline_query_current_chat="")
         ],[
-        InlineKeyboardButton('HELP⚙️', callback_data ='cmds') 
-        ],[
-        InlineKeyboardButton('ABOUT📕', callback_data='about'),
-        InlineKeyboardButton('CLOSE🔐', callback_data='close')
+        InlineKeyboardButton('HELPℹ️', callback_data ='cmds'),        
+        InlineKeyboardButton('ABOUT😁', callback_data='about')        
         ]]
     )
 CMDS_BUTTONS = InlineKeyboardMarkup(
