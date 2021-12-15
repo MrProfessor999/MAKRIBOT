@@ -48,20 +48,28 @@ ABOUT_TEXT = """
 ║╰━━━━━━━━━━━━━━━➣ ╚══════════════════❍⊱❁۪۪
 """
 MUSIC = """ **🎧MUSIC**
+You can also use this feature in group too
 ➩ /music <songname artist(optional)>: uploads the song in it's best quality available
+You can also use these commands /song,/m,/s
 """
  
 VSONG = """ **📀VSONG📀**
+You can also use this feature in group too
 ➩ /vsong <songname artist(optional)>: uploads the video song in it's best quality available
+➩ /video <songname artist(optional)>: uploads the video song in it's best quality available
 """
   
 LYRICS = """ **🎶LYRICS🎶**
+You can also use this feature in group too
 ➩ /lyrics <songname>: uploads the lyrics of song
 """
 
 YOUTUBE = """  **📽️YOUTUBE📽️**
+You can also use this feature in group too
+
 ➩ /ytaudio <youtubelink>: uploads the audio of song in it's best quality available
 ➩ /ytvideo <youtubelink>: uploads the video of song in it's best quality available
+you can also use inline for search YouTube video or song
 """
 
 
@@ -378,7 +386,7 @@ def download_youtube_audio(url: str):
     return [title, performer, duration, audio_file, thumbnail_file]
 
 
-@Bot.on_message(filters.command(["vsong", "video"]))
+@Bot.on_message(filters.command(["vsong", "video","ytvideo"]))
 async def ytmusic(client, message: Message):
     urlissed = get_text(message)
 
@@ -454,7 +462,7 @@ async def ytmusic(client, message: Message):
             os.remove(files)
 
 
-@Bot.on_message(filters.command(["music", "song"]))
+@Bot.on_message(filters.command(["music", "song","s","m","ytaudio"]))
 async def ytmusic(client, message: Message):
     urlissed = get_text(message)
     if not urlissed:
