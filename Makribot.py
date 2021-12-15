@@ -230,7 +230,7 @@ async def start(bot, update):
     await update.reply_photo(
         photo="https://telegra.ph/file/a9522ca5294a086a5dbe8.jpg",
         caption=START_TEXT.format(update.from_user.mention),            
-        disable_web_page_preview=True	
+        reply_markup=START_BUTTONS
     )
 
 @Bot.on_message(filters.private & filters.command(["about"]))
