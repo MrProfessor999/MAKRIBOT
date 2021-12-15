@@ -227,7 +227,7 @@ def get_text(message: Message) -> [None, str]:
         
 @Bot.on_message(filters.private & filters.command(["start"]))
 async def start(bot, update):    
-    await m.reply_photo(
+    await update.reply_photo(
         photo="https://telegra.ph/file/a9522ca5294a086a5dbe8.jpg",
         caption=START_TEXT.format(m.from_user.mention),
         reply_markup=START_BUTTONS,    
@@ -236,8 +236,9 @@ async def start(bot, update):
 
 @Bot.on_message(filters.private & filters.command(["about"]))
 async def about(bot, update):
-    await update.reply_text(
-        text=ABOUT_TEXT,
+    await update.reply_photo(
+        photo="https://telegra.ph/file/a9522ca5294a086a5dbe8.jpg",
+        caption=ABOUT_TEXT,
         disable_web_page_preview=True,
         reply_markup=ABOUT_BUTTONS
     )
