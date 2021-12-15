@@ -75,7 +75,7 @@ CMDS_BUTTONS = InlineKeyboardMarkup(
         InlineKeyboardButton('🎧MUSIC🎧', callback_data='song'),
         InlineKeyboardButton('📀VSONG📀', callback_data='video')
         ],[
-        InlineKeyboardButton('🎶LYRICS🎶', callback_data='lyrics')
+        InlineKeyboardButton('🎶LYRICS🎶', callback_data='lyrics'),
         InlineKeyboardButton('📽️YOUTUBE📽️', callback_data='youtube')
         ],[
         InlineKeyboardButton('🏠 Home', callback_data='home'),            
