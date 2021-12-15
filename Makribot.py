@@ -99,7 +99,33 @@ ABOUT_BUTTONS = InlineKeyboardMarkup(
         InlineKeyboardButton('CLOSE🔐', callback_data='close')
         ]]
     )
-
+MUSIC_BUTTON = InlineKeyboardMarkup(
+        [[
+            InlineKeyboardButton('👩‍🦯 Back', callback_data='help')
+        ]]
+    )
+SOURCE_BUTTON = InlineKeyboardMarkup(
+        [[
+            InlineKeyboardButton('👩‍🦯 Back', callback_data='about')
+        ]]
+    )
+YOUTUBE_BUTTON = InlineKeyboardMarkup(
+        [[
+            InlineKeyboardButton(text="SEARCH🔎", switch_inline_query_current_chat="")
+            InlineKeyboardButton('👩‍🦯 Back', callback_data='help')
+        ]]
+    )
+VSONG_BUTTON = InlineKeyboardMarkup(
+        [[
+            InlineKeyboardButton('👩‍🦯 Back', callback_data='help')
+        ]]
+    )
+LYRICS_BUTTON = InlineKeyboardMarkup(
+        [[
+            InlineKeyboardButton('👩‍🦯 Back', callback_data='help')
+        ]]
+    )
+        
 @Bot.on_callback_query()
 async def cb_handler(bot, update):
     if update.data == "home":
