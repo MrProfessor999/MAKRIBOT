@@ -111,7 +111,7 @@ SOURCE_BUTTON = InlineKeyboardMarkup(
     )
 YOUTUBE_BUTTON = InlineKeyboardMarkup(
         [[
-            InlineKeyboardButton(text="SEARCH🔎", switch_inline_query_current_chat="")
+            InlineKeyboardButton(text="SEARCH🔎", switch_inline_query_current_chat=""),
             InlineKeyboardButton('👩‍🦯 Back', callback_data='help')
         ]]
     )
