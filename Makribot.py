@@ -29,22 +29,7 @@ Use /help Commands For More.`
 """
 
 CMDS_TEXT = """
-`Here It is The List of Commamds and Its usage.`
-
-- /song - This Command is For Downloading Songs. 
-- /lyrics - This Command is For Scrapping Lyrics of a Song. 
-- /video - This Command is For Downloading Videos. 
-- Also You Can search videos via inline Mode on Bot. 
-
-`Exmples For Both Those Commands.`
-
-- /song [song name] or [youTube link]. 
-  [/song Alone]. 
-- /lyrics [song name]. 
-  [/lyrics alone] 
-- /video [video name] or [YouTube link] 
-  [/video Alone] 
-  
+Hey {} This are this bots fetures
 """
 
 ABOUT_TEXT = """
@@ -91,7 +76,7 @@ async def cb_handler(bot, update):
         )
     elif update.data == "cmds":
         await update.message.edit_text(
-            text=CMDS_TEXT,
+            text=CMDS_TEXT.format(update.from_user.mention),
             reply_markup=CMDS_BUTTONS,
             disable_web_page_preview=True
         )
@@ -99,6 +84,30 @@ async def cb_handler(bot, update):
         await update.message.edit_text(
             text=ABOUT_TEXT,
             reply_markup=ABOUT_BUTTONS,
+            disable_web_page_preview=True
+        )
+     elif update.data == "song":
+        await update.message.edit_text(
+            text=MUSIC,
+            reply_markup=MUSIC_BUTTON,
+            disable_web_page_preview=True
+        )
+    elif update.data == "video":
+        await update.message.edit_text(
+            text=VSONG,
+            reply_markup=VSONG_BUTTON,
+            disable_web_page_preview=True
+        )
+    elif update.data == "lyric":
+        await update.message.edit_text(
+            text=LYRICS,
+            reply_markup=LYRICS_BUTTON,
+            disable_web_page_preview=True
+        )
+    elif update.data == "youtube":
+        await update.message.edit_text(
+            text=YOUTUBE,
+            reply_markup=YOUTUBE_BUTTON,
             disable_web_page_preview=True
         )
     else:
@@ -146,7 +155,7 @@ def time_to_seconds(time):
 
 
 
-@Bot.on_message(filters.command(["song","music","m","s"]))
+@Bot.on_message(filters.command(["song","music","m","s","ytaudio"]))
 def a(client, message):
     query = ''
     for i in message.command[1:]:
@@ -197,7 +206,7 @@ def a(client, message):
             info_dict = ydl.extract_info(link, download=False)
             audio_file = ydl.prepare_filename(info_dict)
             ydl.process_info(info_dict)
-        rep = f'❍📖 <b>Title:</b> <a href="{link}">{title}</a>\n❍⌚ <b>Duration:</b> <code>{duration}</code>\n❍📤 <b>Uploaded By:</b> <a href="https://t.me/blesson_3">MAKRI</a>'
+        rep = f'❍📖 <b>Title:</b> <a href="{link}">{title}</a>\n❍⌚ <b>Duration:</b> <code>{duration}</code>\n❍📤 <b>Uploaded By:</b> <a href="https://t.me/Makri_songbot">MAKRI_SONGBOT</a>'
         secmul, dur, dur_arr = 1, 0, duration.split(':')
         for i in range(len(dur_arr)-1, -1, -1):
             dur += (int(dur_arr[i]) * secmul)
@@ -205,7 +214,7 @@ def a(client, message):
         message.reply_audio(audio_file, caption=rep, parse_mode='HTML',quote=False, title=title, duration=dur, performer=performer, thumb=thumb_name)
         m.delete()
     except Exception as e:
-        m.edit('**Something Went Wrong Report This at @NAZRIYASUPPORT!!**')
+        m.edit('**Something Went Wrong Report This at @EDIT_REPO!!**')
         print(e)
     try:
         os.remove(audio_file)
@@ -280,7 +289,7 @@ async def lrsearch(_, message: Message):
 {S.lyrics}"""
     await m.edit(xxx)
 
-@Bot.on_message(filters.command(["vsong", "video"]))
+@Bot.on_message(filters.command(["vsong", "video","ytvideo"]))
 async def ytmusic(client, message: Message):
     global is_downloading
     if is_downloading:
