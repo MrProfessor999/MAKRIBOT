@@ -427,7 +427,7 @@ def yt_search(song):
         url = f"https://youtu.be/{video_id}"
         return url
 
-@bot.on_message(filters.command(['s']))
+@Bot.on_message(filters.command(['s']))
 def a(client, message):
     query = ''
     for i in message.command[1:]:
